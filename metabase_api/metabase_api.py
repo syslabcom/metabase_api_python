@@ -73,7 +73,10 @@ class Metabase_API():
       card_id = self.get_card_id(card_name, collection_name)
     
     res = self.put('/api/card/{}'.format(card_id), json={'archived':True})
-    self.verbose_print(verbose, 'Successfully Archived.') if res == 200 else print('Archiving Failed.')
+    if res == 200:
+        self.verbose_print(verbose, 'Successfully Archived.')
+    else:
+        print('Archiving Failed.')
     
     return res
   
@@ -236,7 +239,10 @@ class Metabase_API():
           
         self.verbose_print(verbose, "Creating the card using only the provided custom_json ...") 
         res = self.post("/api/card/", json=custom_json)
-        self.verbose_print(verbose, 'Card Created Successfully.') if res else print('Card Creation Failed.')
+        if res:
+            self.verbose_print(verbose, 'Card Created Successfully.')
+        else:
+            print('Card Creation Failed.')
         
         return res
     
